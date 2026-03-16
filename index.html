@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baddie Detector</title>
+  <meta name="description" content="Drop a photo. Find out the truth. AI-powered baddie score from 0 to 100.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Fredoka:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── UPLOAD SECTION ── -->
+  <section id="upload-section" class="section active">
+    <div class="container">
+
+      <header>
+        <div class="stars-row" aria-hidden="true">&#10022; &#10022; &#10022; &#10022; &#10022;</div>
+        <div class="badge">&#9825; AI-Powered &#9825;</div>
+        <h1>Baddie<br><span class="title-outline">Detector</span></h1>
+        <p class="subtitle">upload ur pic &amp; our AI will rate<br>ur baddie level from 0 to 100 &#x1F48B;</p>
+        <div class="stars-row" aria-hidden="true">&#10022; &#10022; &#10022; &#10022; &#10022;</div>
+      </header>
+
+      <div class="upload-zone" id="drop-zone">
+        <input type="file" id="file-input" accept="image/*" hidden>
+
+        <div class="upload-prompt" id="upload-prompt">
+          <div class="upload-icon-wrap">
+            <span class="upload-star">&#10022;</span>
+            <svg class="upload-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 32V16M24 16L17 23M24 16L31 23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 36a8 8 0 0 1 0-16 10 10 0 0 1 19.8-2A8 8 0 1 1 40 36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p class="upload-main">drop ur photo here &#9825;</p>
+          <p class="upload-sub">or <button class="link-btn" id="browse-btn">browse files</button></p>
+          <p class="upload-hint">JPG &middot; PNG &middot; WEBP &mdash; max 10MB</p>
+        </div>
+
+        <div class="preview-wrap" id="preview-wrap" style="display:none">
+          <img id="preview-img" src="" alt="Preview">
+          <div class="preview-meta">
+            <p id="preview-filename" class="preview-filename"></p>
+            <button class="link-btn" id="change-btn">&#10022; change photo</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="detect-btn" id="detect-btn" disabled>
+        &#9825;&nbsp; Detect a Baddie &nbsp;&#9825;
+      </button>
+
+      <p class="footer-note">&#10022; powered by Gemini AI &nbsp;&#10022;&nbsp; just 4 fun &#10022;</p>
+    </div>
+  </section>
+
+  <!-- ── LOADING SECTION ── -->
+  <section id="loading-section" class="section">
+    <div class="container">
+      <div class="loading-wrap">
+        <div class="spinner-wrap">
+          <div class="spinner"></div>
+          <span class="spinner-star">&#9825;</span>
+        </div>
+        <p class="loading-title">analyzing ur baddie level&hellip;</p>
+        <p class="loading-sub">our AI is judging u rn &#10022;</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RESULT SECTION ── -->
+  <section id="result-section" class="section">
+    <div class="container result-container">
+      <button class="back-btn" id="back-btn">&#8592; try another</button>
+
+      <div class="result-layout">
+        <div class="result-photo-wrap">
+          <img id="result-img" src="" alt="Result">
+          <div class="photo-sticker">&#9825;</div>
+        </div>
+
+        <div class="result-info">
+          <div class="score-ring-wrap">
+            <svg class="score-ring" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="ring-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FF69B4"/>
+                  <stop offset="50%" stop-color="#CC44FF"/>
+                  <stop offset="100%" stop-color="#00D4FF"/>
+                </linearGradient>
+              </defs>
+              <circle class="ring-track" cx="100" cy="100" r="80"/>
+              <circle class="ring-fill" id="ring-fill" cx="100" cy="100" r="80"/>
+            </svg>
+            <div class="score-center">
+              <span class="score-num" id="score-num">0</span>
+              <span class="score-denom">/100</span>
+            </div>
+          </div>
+
+          <div class="result-label-wrap">
+            <span class="result-star" aria-hidden="true">&#10022;</span>
+            <p class="result-label" id="result-label"></p>
+            <span class="result-star" aria-hidden="true">&#10022;</span>
+          </div>
+
+          <p class="result-desc" id="result-desc"></p>
+
+          <div class="result-tags" id="result-tags"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
