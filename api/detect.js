@@ -27,7 +27,6 @@ Respond ONLY with valid JSON — no markdown, no extra text:
 }`;
 
 module.exports = async function handler(req, res) {
-  // CORS for local dev
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -36,11 +35,10 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const { image, mimeType } = req.body || {};
-
   if (!image) return res.status(400).json({ error: 'No image provided' });
 
   const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-  if (!GEMINI_API_KEY) return res.status(500).json({ error: 'API key not configured' });
+  if (!GEMINI_API_KEY) return res.status(500).json({ error: 'Service unavailable' });
 
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
 
@@ -69,46 +67,33 @@ module.exports = async function handler(req, res) {
     });
 
     if (!geminiRes.ok) {
-      const text = await geminiRes.text();
-      console.error('Gemini error status:', geminiRes.status, text);
-      let detail = '';
-      try { detail = JSON.parse(text)?.error?.message || text; } catch { detail = text; }
-      return res.status(502).json({ error: `Gemini error (${geminiRes.status}): ${detail}` });
+      const status = geminiRes.status;
+      if (status === 429) return res.status(429).json({ error: 'Too many requests, please try again later' });
+      return res.status(502).json({ error: 'Service unavailable, please try again later' });
     }
 
     const data = await geminiRes.json();
-
     const candidate = data.candidates?.[0];
-    if (!candidate) {
-      return res.status(422).json({ error: 'Could not analyze this image. Try a clearer photo.' });
-    }
 
-    // Check for safety block
-    if (candidate.finishReason === 'SAFETY') {
-      return res.status(422).json({ error: 'Image flagged by safety filters. Try a different photo.' });
+    if (!candidate || candidate.finishReason === 'SAFETY') {
+      return res.status(422).json({ error: 'Could not analyze this image. Try a different photo.' });
     }
 
     const text = candidate.content?.parts?.[0]?.text || '';
-
-    // DEBUG — always return raw info so we can diagnose
     const start = text.indexOf('{');
     const end   = text.lastIndexOf('}');
 
     if (start === -1 || end === -1 || end <= start) {
-      console.error('No JSON found:', text);
-      return res.status(502).json({ error: 'Unexpected AI response. Please try again.' });
+      return res.status(502).json({ error: 'Please try again.' });
     }
 
-    const jsonStr = text.slice(start, end + 1);
     let result;
     try {
-      result = JSON.parse(jsonStr);
-    } catch (e) {
-      console.error('JSON parse error:', e.message, jsonStr.slice(0, 200));
-      return res.status(502).json({ error: 'Could not parse AI response. Please try again.' });
+      result = JSON.parse(text.slice(start, end + 1));
+    } catch {
+      return res.status(502).json({ error: 'Please try again.' });
     }
 
-    // Validate & sanitize
     const score = Math.round(Math.min(Math.max(Number(result.score) || 0, 0), 100));
 
     return res.status(200).json({
@@ -118,8 +103,7 @@ module.exports = async function handler(req, res) {
       highlights:  (Array.isArray(result.highlights) ? result.highlights : []).slice(0, 5).map(String),
     });
 
-  } catch (err) {
-    console.error('Handler error:', err);
-    return res.status(500).json({ error: 'Internal server error.' });
+  } catch {
+    return res.status(500).json({ error: 'Please try again.' });
   }
 };

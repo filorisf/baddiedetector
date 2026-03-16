@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Baddie Detector</title>
-  <meta name="description" content="Drop a photo. Find out the truth. AI-powered baddie score from 0 to 100.">
+  <meta name="description" content="Drop a photo. Find out the truth. Baddie score from 0 to 100.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Fredoka:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,11 +17,22 @@
     <div class="container">
 
       <header>
-        <div class="stars-row" aria-hidden="true">&#10022; &#10022; &#10022; &#10022; &#10022;</div>
-        <div class="badge">&#9825; AI-Powered &#9825;</div>
+        <div class="deco-row" aria-hidden="true">
+          <span class="deco-star">&#10022;</span>
+          <span class="deco-heart">&#9825;</span>
+          <span class="deco-star">&#10022;</span>
+          <span class="deco-heart">&#9825;</span>
+          <span class="deco-star">&#10022;</span>
+        </div>
         <h1>Baddie<br><span class="title-outline">Detector</span></h1>
-        <p class="subtitle">upload ur pic &amp; our AI will rate<br>ur baddie level from 0 to 100 &#x1F48B;</p>
-        <div class="stars-row" aria-hidden="true">&#10022; &#10022; &#10022; &#10022; &#10022;</div>
+        <p class="subtitle">drop ur photo &amp; find out<br>ur baddie score from 0 to 100</p>
+        <div class="deco-row" aria-hidden="true">
+          <span class="deco-heart">&#9825;</span>
+          <span class="deco-star">&#10022;</span>
+          <span class="deco-heart">&#9825;</span>
+          <span class="deco-star">&#10022;</span>
+          <span class="deco-heart">&#9825;</span>
+        </div>
       </header>
 
       <div class="upload-zone" id="drop-zone">
@@ -29,13 +40,13 @@
 
         <div class="upload-prompt" id="upload-prompt">
           <div class="upload-icon-wrap">
-            <span class="upload-star">&#10022;</span>
+            <span class="upload-deco">&#10022;</span>
             <svg class="upload-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M24 32V16M24 16L17 23M24 16L31 23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M8 36a8 8 0 0 1 0-16 10 10 0 0 1 19.8-2A8 8 0 1 1 40 36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <p class="upload-main">drop ur photo here &#9825;</p>
+          <p class="upload-main">drop ur photo here</p>
           <p class="upload-sub">or <button class="link-btn" id="browse-btn">browse files</button></p>
           <p class="upload-hint">JPG &middot; PNG &middot; WEBP &mdash; max 10MB</p>
         </div>
@@ -44,16 +55,16 @@
           <img id="preview-img" src="" alt="Preview">
           <div class="preview-meta">
             <p id="preview-filename" class="preview-filename"></p>
-            <button class="link-btn" id="change-btn">&#10022; change photo</button>
+            <button class="link-btn" id="change-btn">change photo</button>
           </div>
         </div>
       </div>
 
       <button class="detect-btn" id="detect-btn" disabled>
-        &#9825;&nbsp; Detect a Baddie &nbsp;&#9825;
+        Detect a Baddie
       </button>
 
-      <p class="footer-note">&#10022; powered by Gemini AI &nbsp;&#10022;&nbsp; just 4 fun &#10022;</p>
+      <p class="footer-note">&#10022; &nbsp; for fun only &nbsp; &#10022;</p>
     </div>
   </section>
 
@@ -65,8 +76,8 @@
           <div class="spinner"></div>
           <span class="spinner-star">&#9825;</span>
         </div>
-        <p class="loading-title">analyzing ur baddie level&hellip;</p>
-        <p class="loading-sub">our AI is judging u rn &#10022;</p>
+        <p class="loading-title">analyzing ur baddie level</p>
+        <p class="loading-sub">hold on bestie&#8230;</p>
       </div>
     </div>
   </section>
