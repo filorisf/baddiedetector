@@ -41,7 +41,8 @@ Now scan every detail to find the exact score within your vibe tier:
 - Makeup: brows, lashes, skin, lips — done or not?
 - Outfit: is it fire, stylish, trendy — or casual, sloppy, boring?
 - Hair: styled, voluminous, colored, sleek — or flat, unstyled, ignored?
-- Pose & energy: owns the camera or looks uncomfortable?
+- Pose & energy: owns the camera or looks uncomfortable? Is the pose intentional, lazy, cute, powerful, awkward? Describe it specifically.
+- Middle finger: if the person is flipping the bird → instant baddie signal, adds attitude points. No middle finger = neutral.
 - Accessories & extras: nails, jewelry, shoes, bag — do they add to the look?
 - Context: background, lighting, photo quality — does it elevate or kill the vibe?
 
@@ -57,6 +58,8 @@ Use the details to land on a precise number within the tier you committed to in 
 - Pretty face with zero styling = 20–35. Looks alone don't make a baddie.
 - Full beat, fire outfit, confident energy = 75+. Don't hold back when it's earned.
 - Glasses: trendy frames on a styled look = fine. Nerdy frames + no effort = not baddie.
+- Middle finger in the photo = attitude bonus, lean toward the higher end of the tier.
+- Always comment on the pose specifically in the description — is it giving or not?
 - Do NOT round to multiples of 5. Exact numbers only: 23, 67, 41, 88, 31, 78.
 
 Tiers (for label only):
