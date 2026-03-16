@@ -93,7 +93,7 @@ module.exports = async function handler(req, res) {
   const { image, mimeType, language } = req.body || {};
   if (!image) return res.status(400).json({ error: 'No image provided' });
 
-  const langNames = { EN: 'English', FR: 'French', ES: 'Spanish', PT: 'Portuguese', IT: 'Italian', DE: 'German' };
+  const langNames = { EN: 'English', FR: 'French', ES: 'Spanish', PT: 'Portuguese', IT: 'Italian', DE: 'German', ZH: 'Chinese (Simplified)' };
   const langInstruction = language && language !== 'EN'
     ? `\n\nWrite the label, description, and highlights in ${langNames[language] || 'English'}. JSON keys must stay in English.`
     : '';

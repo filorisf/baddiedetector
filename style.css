@@ -316,6 +316,32 @@ h1 {
   font-weight: 500;
 }
 
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footer-link:hover {
+  color: var(--pink-hot);
+}
+
+.footer-dot {
+  font-size: 10px;
+  color: var(--faint);
+}
+
 /* ── LOADING ── */
 
 .loading-wrap {
