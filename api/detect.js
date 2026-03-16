@@ -90,8 +90,13 @@ module.exports = async function handler(req, res) {
     return res.status(429).json({ error: 'Too many requests, please try again later' });
   }
 
-  const { image, mimeType } = req.body || {};
+  const { image, mimeType, language } = req.body || {};
   if (!image) return res.status(400).json({ error: 'No image provided' });
+
+  const langNames = { EN: 'English', FR: 'French', ES: 'Spanish', PT: 'Portuguese', IT: 'Italian', DE: 'German' };
+  const langInstruction = language && language !== 'EN'
+    ? `\n\nWrite the label, description, and highlights in ${langNames[language] || 'English'}. JSON keys must stay in English.`
+    : '';
 
   const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
   if (!GEMINI_API_KEY) return res.status(500).json({ error: 'Service unavailable' });
@@ -102,7 +107,7 @@ module.exports = async function handler(req, res) {
     contents: [{
       parts: [
         { inlineData: { mimeType: mimeType || 'image/jpeg', data: image } },
-        { text: PROMPT },
+        { text: PROMPT + langInstruction },
       ],
     }],
     generationConfig: {

@@ -3,6 +3,7 @@ let selectedFile = null;
 let compressedBase64 = null;
 let compressedMime = null;
 let previewDataUrl = null;
+let selectedLang = 'EN';
 
 // ── DOM ──
 const dropZone    = document.getElementById('drop-zone');
@@ -99,6 +100,33 @@ function resetAll() {
 
 backBtn.addEventListener('click', resetAll);
 
+// ── LANGUAGE SELECTOR ──
+const langSelector = document.getElementById('lang-selector');
+const langBtn      = document.getElementById('lang-btn');
+const langFlag     = document.getElementById('lang-flag');
+const langCode     = document.getElementById('lang-code');
+
+langBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  langSelector.classList.toggle('open');
+});
+
+document.addEventListener('click', () => {
+  langSelector.classList.remove('open');
+});
+
+document.querySelectorAll('.lang-option').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    selectedLang         = btn.dataset.lang;
+    langFlag.textContent = btn.dataset.flag;
+    langCode.textContent = btn.dataset.lang;
+    document.querySelectorAll('.lang-option').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    langSelector.classList.remove('open');
+  });
+});
+
 // ── IMAGE COMPRESSION ──
 function compressImage(file, callback) {
   const reader = new FileReader();
@@ -142,7 +170,7 @@ detectBtn.addEventListener('click', async () => {
     const res = await fetch('/api/detect', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ image: compressedBase64, mimeType: compressedMime }),
+      body: JSON.stringify({ image: compressedBase64, mimeType: compressedMime, language: selectedLang }),
     });
 
     if (!res.ok) {
